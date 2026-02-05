@@ -3,7 +3,7 @@ import { useSearchParams } from 'react-router-dom'
 import Layout from '../components/Layout'
 import AddProductModal from '../components/AddProductModal'
 import ImportModal from '../components/ImportModal'
-import { Plus, Upload, Download, Edit, Trash2 } from 'lucide-react'
+import { Upload, Download, Edit, Trash2 } from 'lucide-react'
 import { useBusinessData } from '../hooks/useBusinessData'
 
 interface Product {

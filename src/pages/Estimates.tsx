@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useSearchParams, useNavigate } from 'react-router-dom'
 import Layout from '../components/Layout'
-import { Plus, Search, ChevronDown, Calendar, FileText, Edit, Trash2, Eye } from 'lucide-react'
+import { Search, ChevronDown, Edit, Trash2, Eye } from 'lucide-react'
 import { useBusinessData } from '../hooks/useBusinessData'
 
 interface Estimate {
@@ -18,7 +18,7 @@ interface Estimate {
 
 export default function Estimates() {
   const navigate = useNavigate()
-  const [searchParams] = useSearchParams()
+  const [_searchParams] = useSearchParams()
   const [searchTerm, setSearchTerm] = useState('')
   const [modeFilter, setModeFilter] = useState('Active')
   const [dateFilter, setDateFilter] = useState('')

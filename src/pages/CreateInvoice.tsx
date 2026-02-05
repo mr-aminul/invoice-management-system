@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { useNavigate, Link, useSearchParams } from 'react-router-dom'
 import Layout from '../components/Layout'
 import InvoicePreviewModal from '../components/InvoicePreviewModal'
-import { X, Eye, Save, Plus, Trash2, Upload, CreditCard, Calendar, Sparkles, ChevronDown } from 'lucide-react'
+import { Eye, Save, Plus, Trash2, Upload, CreditCard, Calendar, Sparkles, ChevronDown } from 'lucide-react'
 import { useBusinessData } from '../hooks/useBusinessData'
 import { useBusiness } from '../contexts/BusinessContext'
 
@@ -490,10 +490,13 @@ export default function CreateInvoice() {
       
       newItems.push({
         id: Date.now().toString() + i,
+        itemName: description,
         description,
         quantity,
         price,
         vat,
+        discount: 0,
+        discountType: 'percentage' as const,
       })
     }
     

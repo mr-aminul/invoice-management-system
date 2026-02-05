@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import Layout from '../components/Layout'
 import StatementPreviewModal from '../components/StatementPreviewModal'
-import { Calendar, FileText, CheckSquare } from 'lucide-react'
+import { Calendar } from 'lucide-react'
 import { useBusinessData } from '../hooks/useBusinessData'
 import { useBusiness } from '../contexts/BusinessContext'
 

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { X, Eye, GripVertical, Plus as PlusIcon, Trash2 } from 'lucide-react'
+import { Eye, GripVertical, Plus as PlusIcon, Trash2 } from 'lucide-react'
 import { useBusiness } from '../contexts/BusinessContext'
 
 interface AddEstimateModalProps {
@@ -65,24 +65,16 @@ export default function AddEstimateModal({ isOpen, onClose, onSave, estimate }: 
   const removeItem = (id: string) => {
     setFormData({
       ...formData,
-      items: formData.items.filter((item) => item.id !== id),
+      items: formData.items.filter((item: EstimateItem) => item.id !== id),
     })
   }
 
   const updateItem = (id: string, field: keyof EstimateItem, value: any) => {
-    const newItems = formData.items.map((item) => (item.id === id ? { ...item, [field]: value } : item))
+    const newItems = formData.items.map((item: EstimateItem) => (item.id === id ? { ...item, [field]: value } : item))
     setFormData({ ...formData, items: newItems })
   }
 
-  const calculateItemTotal = (item: EstimateItem) => {
-    const itemTotal = item.quantity * item.price
-    const discountAmount = item.discountType === 'percentage' 
-      ? (itemTotal * item.discount) / 100 
-      : item.discount
-    return itemTotal - discountAmount
-  }
-
-  const discountTotal = formData.items.reduce((sum, item) => {
+  const discountTotal = formData.items.reduce((sum: number, item: EstimateItem) => {
     const itemTotal = item.quantity * item.price
     const discountAmount = item.discountType === 'percentage' 
       ? (itemTotal * item.discount) / 100 
@@ -90,7 +82,7 @@ export default function AddEstimateModal({ isOpen, onClose, onSave, estimate }: 
     return sum + discountAmount
   }, 0)
 
-  const subtotal = formData.items.reduce((sum, item) => sum + item.quantity * item.price, 0)
+  const subtotal = formData.items.reduce((sum: number, item: EstimateItem) => sum + item.quantity * item.price, 0)
   const total = subtotal - discountTotal
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -264,7 +256,7 @@ export default function AddEstimateModal({ isOpen, onClose, onSave, estimate }: 
                   </tr>
                 </thead>
                 <tbody>
-                  {formData.items.map((item) => (
+                  {formData.items.map((item: EstimateItem) => (
                     <tr key={item.id} className="border-t border-slate-200">
                       <td className="px-4 py-3">
                         <div className="flex items-center gap-2">

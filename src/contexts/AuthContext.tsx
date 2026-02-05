@@ -50,7 +50,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     localStorage.setItem('user', JSON.stringify(userData))
   }
 
-  const register = async (name: string, lastName: string, email: string, password: string) => {
+  const register = async (name: string, lastName: string, email: string, _password: string) => {
     // Simulate API call
     await new Promise(resolve => setTimeout(resolve, 500))
     const userData = { email, name: `${name} ${lastName}` }

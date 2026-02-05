@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { useNavigate, Link, useSearchParams } from 'react-router-dom'
 import Layout from '../components/Layout'
 import EstimatePreviewModal from '../components/EstimatePreviewModal'
-import { Eye, Save, Plus, Trash2, Sparkles, ChevronDown } from 'lucide-react'
+import { Eye, Save, Plus, Trash2, Sparkles } from 'lucide-react'
 import { useBusinessData } from '../hooks/useBusinessData'
 import { useBusiness } from '../contexts/BusinessContext'
 
@@ -36,7 +36,7 @@ export default function CreateEstimate() {
   const [items, setItems] = useState<EstimateItem[]>([
     { id: '1', itemName: '', description: '', quantity: 1, price: 0, vat: 0, discount: 0, discountType: 'percentage' },
   ])
-  const [expandedDescriptions, setExpandedDescriptions] = useState<Set<string>>(new Set())
+  const [, _setExpandedDescriptions] = useState<Set<string>>(new Set())
   const [terms, setTerms] = useState('Estimate valid for 30 days, includes all parts and materials.')
   const [notes, setNotes] = useState('')
   const [showPreview, setShowPreview] = useState(false)
@@ -174,15 +174,6 @@ export default function CreateEstimate() {
   }, 0)
   const total = subtotalAfterDiscount + vatAmount
 
-  // Format currency based on position
-  const formatCurrency = (amount: number) => {
-    const formatted = amount.toFixed(2)
-    if (currentBusiness?.currencyPosition === 'after') {
-      return `${formatted}${currencySymbol}`
-    }
-    return `${currencySymbol}${formatted}`
-  }
-
   const validate = () => {
     const newErrors: Record<string, string> = {}
 
@@ -212,7 +203,7 @@ export default function CreateEstimate() {
     if (items.length === 0) {
       newErrors.items = 'At least one item is required'
     } else {
-      items.forEach((item, index) => {
+      items.forEach((item) => {
         if (!item.itemName || !item.itemName.trim()) {
           newErrors[`item-${item.id}-itemName`] = 'Item name is required'
         }
@@ -344,10 +335,13 @@ export default function CreateEstimate() {
       
       newItems.push({
         id: Date.now().toString() + i,
+        itemName: description,
         description,
         quantity,
         price,
         vat,
+        discount: 0,
+        discountType: 'percentage' as const,
       })
     }
     

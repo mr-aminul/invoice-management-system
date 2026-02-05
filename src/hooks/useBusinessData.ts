@@ -7,7 +7,7 @@ import { useBusiness } from '../contexts/BusinessContext'
  */
 export function useBusinessData<T extends { id: string }>(
   storageKey: string,
-  initialData: T[] = []
+  _initialData: T[] = []
 ) {
   const { currentBusiness } = useBusiness()
   const [data, setData] = useState<T[]>([])
@@ -92,7 +92,7 @@ export function useBusinessData<T extends { id: string }>(
       ...item,
       id: Date.now().toString(),
       businessId: currentBusiness.id,
-    } as T
+    } as unknown as T
 
     setData(prev => {
       const updated = [...prev, newItem]
@@ -207,7 +207,7 @@ export function useBusinessData<T extends { id: string }>(
     const scopedItems = items.map(item => ({
       ...item,
       businessId: currentBusiness.id,
-    })) as T[]
+    })) as unknown as T[]
 
     setData(scopedItems)
   }, [currentBusiness])

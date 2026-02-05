@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import Layout from '../components/Layout'
 import AddCreditNoteModal from '../components/AddCreditNoteModal'
-import { Plus, Search, ChevronDown, Calendar, Edit, Trash2, Eye, FileText } from 'lucide-react'
+import { Search, ChevronDown, Edit, Trash2, Eye, FileText } from 'lucide-react'
 import { useBusinessData } from '../hooks/useBusinessData'
 
 interface CreditNote {

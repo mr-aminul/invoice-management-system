@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import Layout from '../components/Layout'
-import { Plus, Search, X, Calendar, ChevronDown, FileText, Edit, Trash2, Eye } from 'lucide-react'
+import { Search, ChevronDown, FileText, Edit, Trash2, Eye } from 'lucide-react'
 import { useBusinessData } from '../hooks/useBusinessData'
 import { useBusiness } from '../contexts/BusinessContext'
 
@@ -15,6 +15,9 @@ interface Invoice {
   status: string
   invoiceNumber?: string
   businessId?: string
+  date?: string
+  isActive?: boolean
+  archived?: boolean
 }
 
 export default function Invoices() {
@@ -28,10 +31,7 @@ export default function Invoices() {
   
   const {
     data: invoices,
-    setData: setInvoices,
     deleteItem: deleteInvoice,
-    deleteItems: deleteInvoices,
-    updateItem: updateInvoice,
   } = useBusinessData<Invoice>('invoices', [])
   
   // Business validation
@@ -51,17 +51,6 @@ export default function Invoices() {
   const handleDelete = (id: string) => {
     if (window.confirm('Are you sure you want to delete this invoice?')) {
       deleteInvoice(id)
-    }
-  }
-
-  const handleBulkDelete = () => {
-    if (selectedInvoices.length === 0) {
-      alert('Please select invoices to delete')
-      return
-    }
-    if (window.confirm(`Are you sure you want to delete ${selectedInvoices.length} invoice(s)?`)) {
-      deleteInvoices(selectedInvoices)
-      setSelectedInvoices([])
     }
   }
 

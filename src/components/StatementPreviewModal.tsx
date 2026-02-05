@@ -1,5 +1,4 @@
 import { useEffect } from 'react'
-import { X } from 'lucide-react'
 
 interface StatementItem {
   id: string
@@ -27,8 +26,8 @@ export default function StatementPreviewModal({
   onClose,
   customerName,
   customerAddress,
-  dateFrom,
-  dateTo,
+  dateFrom: _dateFrom,
+  dateTo: _dateTo,
   items,
   totalDue,
   companyName = 'Inventive Lab Inc',
@@ -53,15 +52,6 @@ export default function StatementPreviewModal({
     const date = new Date(dateString)
     const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'long', day: 'numeric' }
     return date.toLocaleDateString('en-GB', options)
-  }
-
-  const formatDateShort = (dateString: string) => {
-    if (!dateString) return ''
-    const date = new Date(dateString)
-    const day = date.getDate()
-    const month = date.toLocaleString('default', { month: 'short' })
-    const year = date.getFullYear()
-    return `${day} ${month} ${year}`
   }
 
   const statementDate = new Date().toLocaleDateString('en-GB', { 

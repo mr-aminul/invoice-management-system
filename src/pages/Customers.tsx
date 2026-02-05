@@ -3,7 +3,7 @@ import { useSearchParams } from 'react-router-dom'
 import Layout from '../components/Layout'
 import AddCustomerModal from '../components/AddCustomerModal'
 import ImportModal from '../components/ImportModal'
-import { Plus, Search, Download, Upload, ChevronDown, Edit, Trash2, Eye } from 'lucide-react'
+import { Search, Download, Upload, ChevronDown, Edit, Trash2, Eye } from 'lucide-react'
 import { useBusinessData } from '../hooks/useBusinessData'
 import { useBusiness } from '../contexts/BusinessContext'
 
@@ -40,7 +40,6 @@ export default function Customers() {
   
   const {
     data: customers,
-    setData: setCustomers,
     addItem: addCustomerItem,
     updateItem: updateCustomer,
     deleteItem: deleteCustomer,

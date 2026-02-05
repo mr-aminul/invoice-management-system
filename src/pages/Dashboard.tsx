@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect, useMemo } from 'react'
 import { Link } from 'react-router-dom'
 import Layout from '../components/Layout'
-import { Plus, Calendar, Info, Eye, ChevronDown } from 'lucide-react'
+import { Calendar, Info, ChevronDown } from 'lucide-react'
 import { useBusinessData } from '../hooks/useBusinessData'
 import { useBusiness } from '../contexts/BusinessContext'
 
@@ -437,11 +437,11 @@ export default function Dashboard() {
                   const overdueInvoices = invoices.filter((inv: any) => {
                     if (inv.status === 'Paid') return false
                     try {
-                      const dueDate = inv.dueDate ? new Date(inv.dueDate) : null
+                      let dueDate: Date | null = inv.dueDate ? new Date(inv.dueDate) : null
                       if (!dueDate) {
-                        // Calculate from date + timeToPay
                         const invDate = new Date(inv.date || inv.issueDate || '')
                         const days = parseInt(inv.timeToPay || '14')
+                        dueDate = new Date(invDate)
                         dueDate.setDate(invDate.getDate() + days)
                       }
                       return dueDate < now
@@ -453,10 +453,11 @@ export default function Dashboard() {
                   const dueThisMonth = invoices.filter((inv: any) => {
                     if (inv.status === 'Paid') return false
                     try {
-                      const dueDate = inv.dueDate ? new Date(inv.dueDate) : null
+                      let dueDate: Date | null = inv.dueDate ? new Date(inv.dueDate) : null
                       if (!dueDate) {
                         const invDate = new Date(inv.date || inv.issueDate || '')
                         const days = parseInt(inv.timeToPay || '14')
+                        dueDate = new Date(invDate)
                         dueDate.setDate(invDate.getDate() + days)
                       }
                       return dueDate >= currentMonthStart && dueDate <= currentMonthEnd

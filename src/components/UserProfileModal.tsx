@@ -1,5 +1,5 @@
-import { useState, useRef, useEffect } from 'react'
-import { X, User, Settings, LogOut, ChevronDown } from 'lucide-react'
+import { useState, useEffect } from 'react'
+import { X, User, Settings, LogOut } from 'lucide-react'
 import { useAuth } from '../contexts/AuthContext'
 import { useNavigate } from 'react-router-dom'
 import { useBusiness } from '../contexts/BusinessContext'

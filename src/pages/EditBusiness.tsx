@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import Layout from '../components/Layout'
 import { useBusiness } from '../contexts/BusinessContext'
-import { Upload, X, Edit2, Trash2, Plus, ChevronLeft, ChevronRight, HelpCircle, Download, Eye } from 'lucide-react'
+import { Edit2, Trash2, Plus, ChevronLeft, ChevronRight, HelpCircle, Download, Eye } from 'lucide-react'
 
 const currencyPositions = [
   { value: 'before', label: 'At the beginning €100' },
@@ -86,8 +86,8 @@ export default function EditBusiness() {
     statementEmailBody: business?.statementEmailBody || '',
   })
   
-  const [logoFile, setLogoFile] = useState<File | null>(null)
-  const [signatureFile, setSignatureFile] = useState<File | null>(null)
+  const [_logoFile, setLogoFile] = useState<File | null>(null)
+  const [_signatureFile, setSignatureFile] = useState<File | null>(null)
   const [logoPreview, setLogoPreview] = useState<string | null>(business?.logo || null)
   const [signaturePreview, setSignaturePreview] = useState<string | null>(business?.signature || null)
   const [originalFormData, setOriginalFormData] = useState(formData)
@@ -181,11 +181,6 @@ export default function EditBusiness() {
   const removeLogo = () => {
     setLogoFile(null)
     setLogoPreview(null)
-  }
-
-  const removeSignature = () => {
-    setSignatureFile(null)
-    setSignaturePreview(null)
   }
 
   const handleSave = () => {

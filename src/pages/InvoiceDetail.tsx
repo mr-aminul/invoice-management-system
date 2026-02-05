@@ -12,8 +12,6 @@ import {
   Edit,
   Trash2,
   CheckCircle,
-  XCircle,
-  Eye,
   FileText,
 } from 'lucide-react'
 

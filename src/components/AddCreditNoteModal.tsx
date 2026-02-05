@@ -8,13 +8,21 @@ interface AddCreditNoteModalProps {
   creditNote?: any
 }
 
+type CreditNoteItem = { description: string; quantity: number; price: number }
+
 export default function AddCreditNoteModal({
   isOpen,
   onClose,
   onSave,
   creditNote,
 }: AddCreditNoteModalProps) {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<{
+    customer: string
+    invoiceNumber: string
+    date: string
+    reason: string
+    items: CreditNoteItem[]
+  }>({
     customer: creditNote?.customer || '',
     invoiceNumber: creditNote?.invoiceNumber || '',
     date: creditNote?.date || new Date().toISOString().split('T')[0],
@@ -34,7 +42,7 @@ export default function AddCreditNoteModal({
   const removeItem = (index: number) => {
     setFormData({
       ...formData,
-      items: formData.items.filter((_, i) => i !== index),
+      items: formData.items.filter((_: CreditNoteItem, i: number) => i !== index),
     })
   }
 
@@ -44,7 +52,7 @@ export default function AddCreditNoteModal({
     setFormData({ ...formData, items: newItems })
   }
 
-  const total = formData.items.reduce((sum, item) => sum + item.quantity * item.price, 0)
+  const total = formData.items.reduce((sum: number, item: CreditNoteItem) => sum + item.quantity * item.price, 0)
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -141,7 +149,7 @@ export default function AddCreditNoteModal({
           <div>
             <label className="block text-sm font-medium text-slate-700 mb-2">Items</label>
             <div className="space-y-4">
-              {formData.items.map((item, index) => (
+              {formData.items.map((item: CreditNoteItem, index: number) => (
                 <div key={index} className="grid grid-cols-12 gap-4 items-end p-4 bg-slate-50 rounded-lg">
                   <div className="col-span-12 md:col-span-5">
                     <input

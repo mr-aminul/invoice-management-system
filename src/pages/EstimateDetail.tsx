@@ -46,7 +46,7 @@ export default function EstimateDetail() {
   const { id } = useParams<{ id: string }>()
   const navigate = useNavigate()
   const { currentBusiness } = useBusiness()
-  const { data: estimates, updateItem: updateEstimate, deleteItem: deleteEstimate } = useBusinessData<Estimate>('estimates', [])
+  const { data: estimates, deleteItem: deleteEstimate } = useBusinessData<Estimate>('estimates', [])
   const { data: customers } = useBusinessData<any>('customers', [])
   const [estimate, setEstimate] = useState<Estimate | null>(null)
   const [loading, setLoading] = useState(true)
