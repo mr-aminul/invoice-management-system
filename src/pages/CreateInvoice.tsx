@@ -540,7 +540,7 @@ export default function CreateInvoice() {
           payments: 0,
         }}
       />
-      <div className="space-y-6">
+      <div className="space-y-6 sm:space-y-8">
         {/* Header */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
           <h2 className="text-2xl sm:text-3xl font-bold text-slate-800">{isEditMode ? 'Edit Invoice' : 'Add new Invoice'}</h2>
@@ -577,11 +577,11 @@ export default function CreateInvoice() {
           </div>
         </div>
 
-        <div className="space-y-6">
+        <div className="space-y-6 sm:space-y-8">
           {/* From/To Section */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* From */}
-            <div className="bg-white rounded-lg shadow-sm border border-slate-200 p-6">
+            <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-5 sm:p-6">
               <h3 className="text-lg font-semibold text-slate-800 mb-4">From</h3>
               <div className="mb-4">
                 <div className="text-slate-800 font-medium">{currentBusiness?.name || 'No Business Selected'}</div>
@@ -600,7 +600,7 @@ export default function CreateInvoice() {
             </div>
 
             {/* To */}
-            <div className="bg-white rounded-lg shadow-sm border border-slate-200 p-6">
+            <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-5 sm:p-6">
               <h3 className="text-lg font-semibold text-slate-800 mb-4">To</h3>
               <div className="mb-4">
                 <select
@@ -646,7 +646,7 @@ export default function CreateInvoice() {
           </div>
 
           {/* General Info */}
-          <div className="bg-white rounded-lg shadow-sm border border-slate-200 p-6">
+          <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-5 sm:p-6">
             <h3 className="text-lg font-semibold text-slate-800 mb-4">General Info</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
@@ -742,7 +742,7 @@ export default function CreateInvoice() {
           </div>
 
           {/* Items Section */}
-          <div className="bg-white rounded-lg shadow-sm border border-slate-200 p-6">
+          <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-5 sm:p-6">
             <div className="flex items-center gap-3 mb-4">
               <div className="w-1 h-6 bg-teal-500 rounded-full"></div>
               <h3 className="text-lg font-semibold text-teal-700">Items</h3>
@@ -934,7 +934,7 @@ export default function CreateInvoice() {
           {/* Attachments and Payment Received */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Attachments */}
-            <div className="bg-white rounded-lg shadow-sm border border-slate-200 p-6">
+            <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-5 sm:p-6">
               <h3 className="text-lg font-semibold text-slate-800 mb-4">Attachments</h3>
               <div className="border-2 border-dashed border-slate-300 rounded-lg p-8 text-center">
                 <Upload className="w-12 h-12 text-slate-400 mx-auto mb-4" />
@@ -959,7 +959,7 @@ export default function CreateInvoice() {
             </div>
 
             {/* Payment Received */}
-            <div className="bg-white rounded-lg shadow-sm border border-slate-200 p-6">
+            <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-5 sm:p-6">
               <h3 className="text-lg font-semibold text-slate-800 mb-4">Payment Received</h3>
               <div className="border-2 border-dashed border-slate-300 rounded-lg p-8 text-center">
                 <CreditCard className="w-12 h-12 text-slate-400 mx-auto mb-4" />
@@ -986,7 +986,7 @@ export default function CreateInvoice() {
 
           {/* Terms and Notes */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="bg-white rounded-lg shadow-sm border border-slate-200 p-6">
+            <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-5 sm:p-6">
               <h3 className="text-lg font-semibold text-slate-800 mb-4">Terms</h3>
               <textarea
                 value={terms}
@@ -996,7 +996,7 @@ export default function CreateInvoice() {
                 placeholder="Please include payment terms, due dates, or any important conditions (e.g., Payment due within 14 days)."
               />
             </div>
-            <div className="bg-white rounded-lg shadow-sm border border-slate-200 p-6">
+            <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-5 sm:p-6">
               <h3 className="text-lg font-semibold text-slate-800 mb-4">Notes</h3>
               <textarea
                 value={notes}
@@ -1009,7 +1009,7 @@ export default function CreateInvoice() {
           </div>
 
           {/* Recurrency */}
-          <div className="bg-white rounded-lg shadow-sm border border-slate-200 p-6">
+          <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-5 sm:p-6">
             <div className="flex items-start justify-between mb-6">
               <div className="flex items-center gap-3">
                 <div className="w-1 h-6 bg-teal-500 rounded-full"></div>

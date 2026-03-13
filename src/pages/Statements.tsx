@@ -274,11 +274,11 @@ export default function Statements() {
 
   return (
     <Layout>
-      <div className="space-y-6">
+      <div className="space-y-6 sm:space-y-8">
         {/* Header */}
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 sm:gap-5">
           <h2 className="text-2xl sm:text-3xl font-bold text-slate-800">Statements</h2>
-          <div className="flex items-center gap-3">
+          <div className="flex flex-wrap items-center gap-2 sm:gap-3">
             <button
               onClick={handlePreview}
               className="px-4 py-2 border border-slate-300 rounded-lg hover:bg-slate-50 transition-colors text-slate-700 font-medium text-sm"
@@ -295,8 +295,8 @@ export default function Statements() {
         </div>
 
         {/* Form Section */}
-        <div className="bg-white rounded-lg shadow-sm border border-slate-200 p-6">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-5 sm:p-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5 mb-4">
             <div>
               <label className="block text-sm font-medium text-slate-700 mb-2">
                 Customer <span className="text-red-500">*</span>
@@ -370,7 +370,7 @@ export default function Statements() {
           </div>
           <button
             onClick={handleShowItems}
-            className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg transition-colors font-medium text-sm"
+            className="px-4 py-2.5 bg-primary-50 hover:bg-primary-100 text-primary-700 border border-primary-200 rounded-lg transition-colors font-medium text-sm"
           >
             Show items
           </button>
@@ -378,7 +378,7 @@ export default function Statements() {
 
         {/* Statement Preview Section */}
         {showItems && (
-          <div className="bg-white rounded-lg shadow-sm border border-slate-200 p-6">
+          <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-5 sm:p-6 overflow-hidden">
             {/* Balance Summary */}
             <div className="flex flex-wrap items-center gap-4 mb-6 pb-4 border-b border-slate-200">
               <div className="text-sm text-slate-700">
@@ -398,20 +398,20 @@ export default function Statements() {
             {statementItems.length > 0 ? (
               <>
                 <div className="overflow-x-auto">
-                  <table className="w-full border-collapse">
+                  <table className="w-full min-w-[500px] border-collapse">
                     <thead>
-                      <tr className="bg-slate-100">
-                        <th className="px-3 py-2 text-left text-xs font-bold text-slate-700 uppercase border-b border-slate-300"></th>
-                        <th className="px-3 py-2 text-left text-xs font-bold text-slate-700 uppercase border-b border-slate-300">Transactions</th>
-                        <th className="px-3 py-2 text-left text-xs font-bold text-slate-700 uppercase border-b border-slate-300">Type</th>
-                        <th className="px-3 py-2 text-left text-xs font-bold text-slate-700 uppercase border-b border-slate-300">Date</th>
-                        <th className="px-3 py-2 text-left text-xs font-bold text-slate-700 uppercase border-b border-slate-300">AMOUNT</th>
+                      <tr className="bg-slate-50 text-left text-xs font-semibold text-slate-600 uppercase border-b border-slate-200">
+                        <th className="px-4 py-3 w-12"></th>
+                        <th className="px-4 py-3">Transactions</th>
+                        <th className="px-4 py-3">Type</th>
+                        <th className="px-4 py-3">Date</th>
+                        <th className="px-4 py-3">Amount</th>
                       </tr>
                     </thead>
                     <tbody>
                       {statementItems.map((item) => (
-                        <tr key={item.id} className="border-b border-slate-200 hover:bg-slate-50">
-                          <td className="px-3 py-3">
+                        <tr key={item.id} className="border-b border-slate-100 hover:bg-slate-50 transition-colors">
+                          <td className="px-4 py-3">
                             <input
                               type="checkbox"
                               checked={selectedItems.has(item.id)}
@@ -419,10 +419,10 @@ export default function Statements() {
                               className="w-4 h-4 text-primary-600 border-slate-300 rounded focus:ring-primary-500"
                             />
                           </td>
-                          <td className="px-3 py-3 text-sm text-slate-800 font-medium">{item.transaction}</td>
-                          <td className="px-3 py-3 text-sm text-slate-600">{item.type}</td>
-                          <td className="px-3 py-3 text-sm text-slate-600">{formatDate(item.date)}</td>
-                          <td className="px-3 py-3 text-sm text-slate-800 font-medium">
+                          <td className="px-4 py-3 text-sm text-slate-800 font-medium">{item.transaction}</td>
+                          <td className="px-4 py-3 text-sm text-slate-600">{item.type}</td>
+                          <td className="px-4 py-3 text-sm text-slate-600">{formatDate(item.date)}</td>
+                          <td className="px-4 py-3 text-sm text-slate-800 font-medium">
                             {item.amount >= 0 ? '' : '-'}£{Math.abs(item.amount).toLocaleString('en-GB', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                           </td>
                         </tr>
@@ -435,7 +435,7 @@ export default function Statements() {
                 </div>
               </>
             ) : (
-              <div className="py-8 text-center text-slate-500">No statements.</div>
+              <div className="px-4 py-8 text-center text-slate-500">No statements.</div>
             )}
           </div>
         )}

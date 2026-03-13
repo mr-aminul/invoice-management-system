@@ -310,10 +310,10 @@ export default function InvoiceDetail() {
 
   return (
     <Layout>
-      <div className="space-y-6">
+      <div className="space-y-6 sm:space-y-8">
         {/* Header */}
-        <div className="no-print flex justify-between items-center">
-          <div className="flex items-center gap-4">
+        <div className="no-print flex flex-wrap justify-between items-start sm:items-center gap-4">
+          <div className="flex items-center gap-3 sm:gap-4">
             <Link
               to="/invoices"
               className="p-2 hover:bg-slate-100 rounded-lg transition-colors"
@@ -321,7 +321,7 @@ export default function InvoiceDetail() {
               <ArrowLeft className="w-5 h-5" />
             </Link>
             <div>
-              <h2 className="text-3xl font-bold text-slate-800 flex items-center gap-3">
+              <h2 className="text-2xl sm:text-3xl font-bold text-slate-800 flex items-center gap-3">
                 <FileText className="w-8 h-8 text-primary-600" />
                 {invoice.invoiceNumber || invoice.id}
               </h2>
@@ -330,7 +330,7 @@ export default function InvoiceDetail() {
           </div>
           <div className="flex items-center gap-3">
             <span
-              className={`px-4 py-2 rounded-lg text-sm font-semibold ${
+              className={`px-3 py-1.5 rounded-md text-sm font-semibold ${
                 invoice.status === 'Paid'
                   ? 'bg-green-100 text-green-700'
                   : invoice.status === 'Unpaid'
@@ -342,7 +342,7 @@ export default function InvoiceDetail() {
             </span>
             <button
               onClick={handlePrint}
-              className="flex items-center gap-2 px-4 py-2 border border-slate-300 rounded-lg hover:bg-slate-50 transition-colors"
+              className="flex items-center gap-2 px-4 py-2.5 border border-slate-300 rounded-lg hover:bg-slate-50 transition-colors text-sm font-medium"
               title="Print invoice"
             >
               <Printer className="w-4 h-4" />
@@ -350,7 +350,7 @@ export default function InvoiceDetail() {
             </button>
             <button
               onClick={handleDownload}
-              className="flex items-center gap-2 px-4 py-2 border border-slate-300 rounded-lg hover:bg-slate-50 transition-colors"
+              className="flex items-center gap-2 px-4 py-2.5 border border-slate-300 rounded-lg hover:bg-slate-50 transition-colors text-sm font-medium"
               title="Download invoice"
             >
               <Download className="w-4 h-4" />
@@ -358,7 +358,7 @@ export default function InvoiceDetail() {
             </button>
             <button
               onClick={handleSendEmail}
-              className="flex items-center gap-2 px-4 py-2 border border-slate-300 rounded-lg hover:bg-slate-50 transition-colors"
+              className="flex items-center gap-2 px-4 py-2.5 border border-slate-300 rounded-lg hover:bg-slate-50 transition-colors text-sm font-medium"
               title="Send via email"
             >
               <Mail className="w-4 h-4" />
@@ -366,7 +366,7 @@ export default function InvoiceDetail() {
             </button>
             <button
               onClick={() => navigate(`/invoices/add?edit=${invoice.id}`)}
-              className="flex items-center gap-2 px-4 py-2 border border-slate-300 rounded-lg hover:bg-slate-50 transition-colors"
+              className="flex items-center gap-2 px-4 py-2.5 border border-slate-300 rounded-lg hover:bg-slate-50 transition-colors text-sm font-medium"
               title="Edit invoice"
             >
               <Edit className="w-4 h-4" />
@@ -374,7 +374,7 @@ export default function InvoiceDetail() {
             </button>
             <button
               onClick={handleDelete}
-              className="flex items-center gap-2 px-4 py-2 border border-red-300 text-red-600 rounded-lg hover:bg-red-50 transition-colors"
+              className="flex items-center gap-2 px-4 py-2.5 border border-red-300 text-red-600 rounded-lg hover:bg-red-50 transition-colors text-sm font-medium"
               title="Delete invoice"
             >
               <Trash2 className="w-4 h-4" />
@@ -383,7 +383,7 @@ export default function InvoiceDetail() {
             {invoice.status !== 'Paid' && (
               <button
                 onClick={handleMarkAsPaid}
-                className="flex items-center gap-2 px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors font-medium"
+                className="flex items-center gap-2 px-4 py-2.5 bg-primary-500 text-white rounded-lg hover:bg-primary-600 transition-colors font-medium text-sm"
                 title="Mark as paid"
               >
                 <CheckCircle className="w-4 h-4" />
@@ -394,7 +394,7 @@ export default function InvoiceDetail() {
         </div>
 
         {/* Invoice Content */}
-        <div className="print-content bg-white rounded-lg shadow-sm border border-slate-200 p-4">
+        <div className="print-content bg-white rounded-xl shadow-sm border border-slate-200 p-5 sm:p-6">
           {/* Invoice Header with Logo */}
           <div className="flex justify-between items-start mb-4 pb-3 border-b border-slate-200">
             <div className="flex items-start gap-3">

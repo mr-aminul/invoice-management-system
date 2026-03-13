@@ -55,7 +55,7 @@ export default function Register() {
 
         {/* Help Button */}
         <div className="absolute top-4 right-4 sm:top-6 sm:right-6 z-10">
-          <button className="flex items-center gap-1 sm:gap-2 px-3 sm:px-4 py-2 bg-green-100 hover:bg-green-200 rounded-lg text-green-800 font-medium transition-colors text-sm">
+          <button className="flex items-center gap-1 sm:gap-2 px-3 sm:px-4 py-2 bg-primary-100 hover:bg-primary-200 rounded-lg text-primary-800 font-medium transition-colors text-sm">
             <HelpCircle className="w-4 h-4 sm:w-5 sm:h-5" />
             <span className="hidden sm:inline">Need help</span>
           </button>
@@ -77,7 +77,7 @@ export default function Register() {
 
             <form onSubmit={handleSubmit} className="space-y-6">
               {error && (
-                <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg">
+                <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl text-sm">
                   {error}
                 </div>
               )}

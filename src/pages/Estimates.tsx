@@ -52,9 +52,9 @@ export default function Estimates() {
 
   return (
     <Layout>
-      <div className="space-y-6">
+      <div className="space-y-6 sm:space-y-8">
         {/* Header */}
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 sm:gap-5">
           <h2 className="text-2xl sm:text-3xl font-bold text-slate-800">Estimates</h2>
           <button
             onClick={() => navigate('/estimates/add')}
@@ -67,7 +67,7 @@ export default function Estimates() {
         </div>
 
         {/* Filters */}
-        <div className="bg-white rounded-lg shadow-sm border border-slate-200 p-4">
+        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-5">
           <div className="flex flex-col md:flex-row gap-4">
             <div className="flex flex-wrap gap-4 flex-1">
               {/* Mode Filter */}
@@ -127,14 +127,14 @@ export default function Estimates() {
         </div>
 
         {/* Estimates Table */}
-        <div className="bg-white rounded-lg shadow-sm border border-slate-200">
+        <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
           {filteredEstimates.length === 0 ? (
-            <div className="p-12 text-center text-slate-500">
-              You have no estimates for applied filters ...
+            <div className="px-4 py-8 text-center text-slate-500">
+              You have no estimates for applied filters …
             </div>
           ) : (
             <div className="overflow-x-auto">
-              <table className="w-full">
+              <table className="w-full min-w-[800px]">
                 <thead>
                   <tr className="text-left text-xs font-semibold text-slate-600 uppercase border-b border-slate-200 bg-slate-50">
                     <th className="px-4 py-3 w-12">
@@ -165,7 +165,7 @@ export default function Estimates() {
                   {filteredEstimates.map((estimate) => {
                     if (!estimate) return null
                     return (
-                      <tr key={estimate.id} className="border-b border-slate-100 hover:bg-slate-50">
+                      <tr key={estimate.id} className="border-b border-slate-100 hover:bg-slate-50 transition-colors">
                       <td className="px-4 py-3">
                         <input
                           type="checkbox"
@@ -182,12 +182,12 @@ export default function Estimates() {
                           {estimate.number}
                         </button>
                       </td>
-                      <td className="px-4 py-3 text-slate-700">{estimate.customer}</td>
-                      <td className="px-4 py-3 text-slate-600">{estimate.date}</td>
-                      <td className="px-4 py-3 text-slate-600">{estimate.expiryDate}</td>
-                      <td className="px-4 py-3 font-semibold text-slate-800">{estimate.amount}</td>
+                      <td className="px-4 py-3 text-slate-700 text-sm">{estimate.customer}</td>
+                      <td className="px-4 py-3 text-slate-600 text-sm">{estimate.date}</td>
+                      <td className="px-4 py-3 text-slate-600 text-sm">{estimate.expiryDate}</td>
+                      <td className="px-4 py-3 font-semibold text-slate-800 text-sm">{estimate.amount}</td>
                       <td className="px-4 py-3">
-                        <span className="px-2 py-1 bg-green-100 text-green-700 rounded text-xs font-medium">
+                        <span className="px-2.5 py-1 bg-green-100 text-green-700 rounded-md text-xs font-medium">
                           {estimate.status}
                         </span>
                       </td>

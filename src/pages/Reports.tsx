@@ -24,29 +24,29 @@ export default function Reports() {
 
   return (
     <Layout>
-      <div className="space-y-6">
+      <div className="space-y-6 sm:space-y-8">
         <div className="flex justify-between items-center">
-          <h2 className="text-3xl font-bold text-slate-800">Reports</h2>
+          <h2 className="text-2xl sm:text-3xl font-bold text-slate-800">Reports</h2>
         </div>
 
         {/* Report Selection */}
-        <div className="bg-white rounded-lg shadow-sm border border-slate-200 p-6">
+        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-5 sm:p-6">
           <h3 className="text-lg font-semibold text-slate-800 mb-4">Select Report Type</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
             {reportTypes.map((type) => {
               const Icon = type.icon
               return (
                 <button
                   key={type.id}
                   onClick={() => setReportType(type.id)}
-                  className={`p-4 border-2 rounded-lg transition-colors text-left ${
+                  className={`p-4 sm:p-5 border-2 rounded-xl transition-colors text-left ${
                     reportType === type.id
                       ? 'border-primary-500 bg-primary-50'
-                      : 'border-slate-200 hover:border-primary-300'
+                      : 'border-slate-200 hover:border-primary-300 hover:bg-slate-50'
                   }`}
                 >
                   <Icon className="w-6 h-6 text-primary-600 mb-2" />
-                  <div className="font-medium text-slate-800">{type.name}</div>
+                  <div className="font-medium text-slate-800 text-sm sm:text-base">{type.name}</div>
                 </button>
               )
             })}
@@ -54,7 +54,7 @@ export default function Reports() {
         </div>
 
         {/* Date Range */}
-        <div className="bg-white rounded-lg shadow-sm border border-slate-200 p-6">
+        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-5 sm:p-6">
           <h3 className="text-lg font-semibold text-slate-800 mb-4">Date Range</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
@@ -85,18 +85,18 @@ export default function Reports() {
         </div>
 
         {/* Actions */}
-        <div className="bg-white rounded-lg shadow-sm border border-slate-200 p-6">
-          <div className="flex justify-end gap-3">
+        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-5 sm:p-6">
+          <div className="flex flex-wrap justify-end gap-3">
             <button
               onClick={handleExportReport}
-              className="flex items-center gap-2 px-6 py-2 border border-slate-300 rounded-lg hover:bg-slate-50 transition-colors"
+              className="flex items-center gap-2 px-5 py-2.5 border border-slate-300 rounded-lg hover:bg-slate-50 transition-colors text-sm font-medium"
             >
               <Download className="w-4 h-4" />
               Export Report
             </button>
             <button
               onClick={handleGenerateReport}
-              className="flex items-center gap-2 px-6 py-2 bg-primary-500 text-white rounded-lg hover:bg-primary-600 transition-colors font-medium"
+              className="flex items-center gap-2 px-5 py-2.5 bg-primary-500 text-white rounded-lg hover:bg-primary-600 transition-colors font-medium text-sm"
             >
               <FileText className="w-4 h-4" />
               Generate Report
@@ -105,9 +105,9 @@ export default function Reports() {
         </div>
 
         {/* Report Preview */}
-        <div className="bg-white rounded-lg shadow-sm border border-slate-200 p-6">
+        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-5 sm:p-6">
           <h3 className="text-lg font-semibold text-slate-800 mb-4">Report Preview</h3>
-          <div className="p-12 text-center text-slate-500">
+          <div className="px-4 py-8 text-center text-slate-500 rounded-lg bg-slate-50 border border-slate-200">
             Select a report type and date range, then click "Generate Report" to view the results.
           </div>
         </div>

@@ -86,9 +86,9 @@ export default function Invoices() {
 
   return (
     <Layout>
-      <div className="space-y-6">
+      <div className="space-y-6 sm:space-y-8">
         {/* Header */}
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 sm:gap-5">
           <h2 className="text-2xl sm:text-3xl font-bold text-slate-800">Invoices</h2>
           <Link
             to="/invoices/add"
@@ -101,7 +101,7 @@ export default function Invoices() {
         </div>
 
         {/* Filters */}
-        <div className="bg-white rounded-lg shadow-sm border border-slate-200 p-4">
+        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-5">
           <div className="flex flex-col md:flex-row gap-4">
             <div className="flex flex-wrap gap-4 flex-1">
               {/* Status Filter */}
@@ -180,8 +180,8 @@ export default function Invoices() {
         </div>
 
         {/* Invoices Table */}
-        <div className="bg-white rounded-lg shadow-sm border border-slate-200">
-          <div className="p-4 border-b border-slate-200">
+        <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+          <div className="px-5 py-4 border-b border-slate-200">
             <button
               onClick={handleBulkMarkInactive}
               className="text-sm text-slate-600 hover:text-slate-800"
@@ -193,7 +193,7 @@ export default function Invoices() {
             <table className="w-full min-w-[800px]">
               <thead>
                 <tr className="text-left text-xs font-semibold text-slate-600 uppercase border-b border-slate-200 bg-slate-50">
-                  <th className="px-2 sm:px-4 py-3 w-12">
+                  <th className="px-4 py-3 w-12">
                     <input
                       type="checkbox"
                       className="rounded border-slate-300"
@@ -207,21 +207,21 @@ export default function Invoices() {
                       }}
                     />
                   </th>
-                  <th className="px-2 sm:px-4 py-3">INVOICE</th>
-                  <th className="px-2 sm:px-4 py-3">CUSTOMER</th>
-                  <th className="px-2 sm:px-4 py-3 hidden md:table-cell">ISSUE DATE</th>
-                  <th className="px-2 sm:px-4 py-3">AMOUNT</th>
-                  <th className="px-2 sm:px-4 py-3 hidden lg:table-cell">BALANCE</th>
-                  <th className="px-2 sm:px-4 py-3">DUE</th>
-                  <th className="px-2 sm:px-4 py-3">STATUS</th>
-                  <th className="px-2 sm:px-4 py-3">ACTIONS</th>
-                  <th className="px-2 sm:px-4 py-3 w-12"></th>
+                  <th className="px-4 py-3">INVOICE</th>
+                  <th className="px-4 py-3">CUSTOMER</th>
+                  <th className="px-4 py-3 hidden md:table-cell">ISSUE DATE</th>
+                  <th className="px-4 py-3">AMOUNT</th>
+                  <th className="px-4 py-3 hidden lg:table-cell">BALANCE</th>
+                  <th className="px-4 py-3">DUE</th>
+                  <th className="px-4 py-3">STATUS</th>
+                  <th className="px-4 py-3">ACTIONS</th>
+                  <th className="px-4 py-3 w-12"></th>
                 </tr>
               </thead>
               <tbody>
                 {filteredInvoices.length === 0 ? (
                   <tr>
-                    <td colSpan={10} className="py-12 text-center text-slate-500">
+                    <td colSpan={10} className="px-4 py-8 text-center text-slate-500">
                       {invoices.length === 0 
                         ? 'No invoices found' 
                         : `No invoices match filters (${invoices.length} total)`}
@@ -229,8 +229,8 @@ export default function Invoices() {
                   </tr>
                 ) : (
                   filteredInvoices.map((invoice) => (
-                    <tr key={invoice.id} className="border-b border-slate-100 hover:bg-slate-50">
-                      <td className="px-2 sm:px-4 py-3">
+                    <tr key={invoice.id} className="border-b border-slate-100 hover:bg-slate-50 transition-colors">
+                      <td className="px-4 py-3">
                         <input
                           type="checkbox"
                           className="rounded border-slate-300"
@@ -238,7 +238,7 @@ export default function Invoices() {
                           onChange={() => toggleInvoiceSelection(invoice.id)}
                         />
                       </td>
-                      <td className="px-2 sm:px-4 py-3">
+                      <td className="px-4 py-3">
                         <Link
                           to={`/invoices/${invoice.id}`}
                           className="flex items-center gap-1 sm:gap-2 text-primary-600 hover:text-primary-700 font-medium text-sm"
@@ -247,13 +247,13 @@ export default function Invoices() {
                           <span className="truncate">{invoice.invoiceNumber || invoice.id}</span>
                         </Link>
                       </td>
-                      <td className="px-2 sm:px-4 py-3 text-slate-700 text-sm truncate max-w-[150px]">{invoice.customer}</td>
-                      <td className="px-2 sm:px-4 py-3 text-slate-600 text-sm hidden md:table-cell">{invoice.issueDate}</td>
-                      <td className="px-2 sm:px-4 py-3 font-semibold text-slate-800 text-sm">{invoice.amount}</td>
-                      <td className="px-2 sm:px-4 py-3 font-semibold text-slate-800 text-sm hidden lg:table-cell">{invoice.balance}</td>
-                      <td className="px-2 sm:px-4 py-3 text-slate-600 text-sm">{invoice.due}</td>
-                      <td className="px-2 sm:px-4 py-3">
-                        <span className={`px-2 py-1 rounded text-xs font-medium ${
+                      <td className="px-4 py-3 text-slate-700 text-sm truncate max-w-[150px]">{invoice.customer}</td>
+                      <td className="px-4 py-3 text-slate-600 text-sm hidden md:table-cell">{invoice.issueDate}</td>
+                      <td className="px-4 py-3 font-semibold text-slate-800 text-sm">{invoice.amount}</td>
+                      <td className="px-4 py-3 font-semibold text-slate-800 text-sm hidden lg:table-cell">{invoice.balance}</td>
+                      <td className="px-4 py-3 text-slate-600 text-sm">{invoice.due}</td>
+                      <td className="px-4 py-3">
+                        <span className={`px-2.5 py-1 rounded-md text-xs font-medium ${
                           invoice.status === 'Paid' 
                             ? 'bg-green-100 text-green-700' 
                             : invoice.status === 'Unpaid'
@@ -263,7 +263,7 @@ export default function Invoices() {
                           {invoice.status}
                         </span>
                       </td>
-                      <td className="px-2 sm:px-4 py-3">
+                      <td className="px-4 py-3">
                         <div className="flex items-center gap-1 sm:gap-2">
                           <button
                             onClick={() => navigate(`/invoices/${invoice.id}`)}
@@ -288,7 +288,7 @@ export default function Invoices() {
                           </button>
                         </div>
                       </td>
-                      <td className="px-2 sm:px-4 py-3"></td>
+                      <td className="px-4 py-3"></td>
                     </tr>
                   ))
                 )}

@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect, useMemo } from 'react'
 import { Link } from 'react-router-dom'
 import Layout from '../components/Layout'
-import { Calendar, Info, ChevronDown } from 'lucide-react'
+import { Calendar, Info, ChevronDown, FileText, Repeat, Plus } from 'lucide-react'
 import { useBusinessData } from '../hooks/useBusinessData'
 import { useBusiness } from '../contexts/BusinessContext'
 
@@ -29,6 +29,20 @@ export default function Dashboard() {
     return currencyMap[currency] || currency
   }
   const currencySymbol = getCurrencySymbol()
+
+  // Dummy data for estimates expiring soon (shown when no real data)
+  const now = new Date()
+  const addDays = (d: Date, days: number) => new Date(d.getTime() + days * 24 * 60 * 60 * 1000)
+  const dummyEstimatesExpiring = [
+    { id: 'dummy-est-1', customer: 'Acme Corp', expiryDate: addDays(now, 5).toISOString(), total: 1250 },
+    { id: 'dummy-est-2', customer: 'Beta Ltd', expiryDate: addDays(now, 14).toISOString(), total: 890 },
+    { id: 'dummy-est-3', customer: 'Gamma Industries', expiryDate: addDays(now, 22).toISOString(), total: 2100 },
+  ]
+  const dummyRecurringInvoices = [
+    { id: 'dummy-inv-1', customer: 'Monthly Retainer Co', nextDate: addDays(now, 3).toISOString(), amount: 500, isRecurring: true },
+    { id: 'dummy-inv-2', customer: 'Subscription Services', nextDate: addDays(now, 15).toISOString(), amount: 199, isRecurring: true },
+    { id: 'dummy-inv-3', customer: 'Annual Support Ltd', nextDate: addDays(now, 28).toISOString(), amount: 1200, isRecurring: true },
+  ]
   
   // Calculate date range based on selected period
   const getDateRange = () => {
@@ -175,15 +189,15 @@ export default function Dashboard() {
 
   return (
     <Layout>
-      <div className="space-y-6">
+        <div className="space-y-6 sm:space-y-8">
         {/* Header */}
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 sm:gap-5">
           <h2 className="text-2xl sm:text-3xl font-bold text-slate-800">Overview</h2>
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 w-full sm:w-auto">
             <div className="relative" ref={periodDropdownRef}>
               <button
                 onClick={() => setShowPeriodDropdown(!showPeriodDropdown)}
-                className="flex items-center gap-2 px-3 sm:px-4 py-2 bg-blue-50 border border-blue-200 rounded-lg hover:bg-blue-100 transition-colors text-primary-600 font-medium text-sm w-full sm:w-auto justify-center sm:justify-start"
+                className="flex items-center gap-2 px-3 sm:px-4 py-2 bg-primary-50 border border-primary-200 rounded-lg hover:bg-primary-100 transition-colors text-primary-700 font-medium text-sm w-full sm:w-auto justify-center sm:justify-start"
               >
                 <Calendar className="w-4 h-4" />
                 <span className="hidden sm:inline">{selectedPeriod}</span>
@@ -191,8 +205,7 @@ export default function Dashboard() {
                 <ChevronDown className="w-4 h-4" />
               </button>
               {showPeriodDropdown && (
-                <div className="absolute top-full left-0 mt-2 w-56 bg-white rounded-lg shadow-lg border border-slate-200 z-50">
-                  <div className="absolute -top-2 left-6 w-0 h-0 border-l-[6px] border-r-[6px] border-b-[6px] border-transparent border-b-white"></div>
+                <div className="absolute top-full left-0 mt-2 w-56 bg-white rounded-xl shadow-lg border border-slate-200 z-50 overflow-hidden">
                   {periodOptions.map((option, index) => (
                     <div key={option}>
                       <button
@@ -200,9 +213,9 @@ export default function Dashboard() {
                           setSelectedPeriod(option)
                           setShowPeriodDropdown(false)
                         }}
-                        className={`w-full text-left px-4 py-2 text-sm transition-colors ${
+                        className={`w-full text-left px-4 py-2.5 text-sm transition-colors ${
                           option === selectedPeriod
-                            ? 'bg-blue-50 text-primary-600 font-medium'
+                            ? 'bg-primary-50 text-primary-700 font-medium'
                             : 'text-slate-700 hover:bg-slate-50'
                         }`}
                       >
@@ -228,8 +241,8 @@ export default function Dashboard() {
         </div>
 
         {/* Revenue Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-          <div className="bg-white rounded-lg shadow-sm p-4 sm:p-6 border border-slate-200">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
+          <div className="bg-white rounded-xl shadow-sm p-5 sm:p-6 border border-slate-200">
             <div className="flex items-center justify-between mb-2">
               <div className="flex items-center gap-2">
                 <span className="text-sm sm:text-base text-slate-600 font-medium">Total revenue</span>
@@ -245,7 +258,7 @@ export default function Dashboard() {
             </div>
           </div>
 
-          <div className="bg-white rounded-lg shadow-sm p-4 sm:p-6 border border-slate-200">
+          <div className="bg-white rounded-xl shadow-sm p-5 sm:p-6 border border-slate-200">
             <div className="flex items-center justify-between mb-2">
               <div className="flex items-center gap-2">
                 <span className="text-sm sm:text-base text-slate-600 font-medium">Total revenue</span>
@@ -261,7 +274,7 @@ export default function Dashboard() {
             </div>
           </div>
 
-          <div className="bg-white rounded-lg shadow-sm p-4 sm:p-6 border border-slate-200 sm:col-span-2 lg:col-span-1">
+          <div className="bg-white rounded-xl shadow-sm p-5 sm:p-6 border border-slate-200 sm:col-span-2 lg:col-span-1">
             <div className="flex items-center gap-2 mb-2">
               <span className="text-sm sm:text-base text-slate-600 font-medium">VAT to pay</span>
               <Info className="w-4 h-4 text-slate-400 flex-shrink-0" />
@@ -271,128 +284,160 @@ export default function Dashboard() {
         </div>
 
         {/* Estimates and Recurring Invoices */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 sm:gap-6">
           {/* Estimates Expiring Soon */}
-          <div className="bg-white rounded-lg shadow-sm border border-slate-200">
-            <div className="p-4 border-b border-slate-200 flex justify-between items-center">
-              <div className="flex items-center gap-2">
-                <h3 className="text-lg font-semibold text-slate-800">Estimates expiring soon</h3>
-                <Info className="w-4 h-4 text-slate-400" />
+          <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+            <div className="px-5 py-4 border-b border-slate-100 flex flex-wrap items-center justify-between gap-3">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-lg bg-amber-50 flex items-center justify-center">
+                  <FileText className="w-5 h-5 text-amber-600" strokeWidth={2} />
+                </div>
+                <div>
+                  <h3 className="text-base font-semibold text-slate-800">Estimates expiring soon</h3>
+                  <p className="text-xs text-slate-500 mt-0.5">Within the next 30 days</p>
+                </div>
               </div>
               <Link
                 to="/estimates"
-                className="text-primary-600 hover:text-primary-700 text-sm font-medium"
+                className="inline-flex items-center px-3 py-1.5 rounded-lg text-sm font-medium text-slate-700 bg-slate-100 hover:bg-slate-200 border border-slate-200 transition-colors"
               >
                 See all
               </Link>
             </div>
-            <div className="p-4 overflow-x-auto">
-              <table className="w-full min-w-[300px]">
-                <thead>
-                  <tr className="text-left text-xs font-semibold text-slate-600 uppercase border-b border-slate-200">
-                    <th className="pb-3">CUSTOMER</th>
-                    <th className="pb-3">EXPIRY DATE</th>
-                    <th className="pb-3">AMOUNT</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {(() => {
-                    const now = new Date()
-                    const expiringSoon = estimates.filter((est: any) => {
-                      try {
-                        const expiryDate = est.expiryDate ? new Date(est.expiryDate) : null
-                        if (!expiryDate) return false
-                        const daysUntilExpiry = Math.ceil((expiryDate.getTime() - now.getTime()) / (1000 * 60 * 60 * 24))
-                        return daysUntilExpiry >= 0 && daysUntilExpiry <= 30
-                      } catch {
-                        return false
-                      }
-                    }).slice(0, 5)
-                    
-                    if (expiringSoon.length === 0) {
-                      return (
-                        <tr>
-                          <td colSpan={3} className="py-8 text-center text-slate-500">
-                            No estimates yet...
-                          </td>
+            <div className="px-5 pb-5 pt-4 overflow-x-auto">
+              {(() => {
+                const expiringSoon = estimates.filter((est: any) => {
+                  try {
+                    const expiryDate = est.expiryDate ? new Date(est.expiryDate) : null
+                    if (!expiryDate) return false
+                    const daysUntilExpiry = Math.ceil((expiryDate.getTime() - now.getTime()) / (1000 * 60 * 60 * 24))
+                    return daysUntilExpiry >= 0 && daysUntilExpiry <= 30
+                  } catch {
+                    return false
+                  }
+                }).slice(0, 5)
+                const displayEstimates = expiringSoon.length > 0 ? expiringSoon : dummyEstimatesExpiring
+                const isDummyEstimates = expiringSoon.length === 0
+                return (
+                  <>
+                    <table className="w-full min-w-[280px]">
+                      <thead>
+                        <tr className="text-left text-xs font-medium text-slate-500">
+                          <th className="pb-1.5 font-medium">Customer</th>
+                          <th className="pb-1.5 font-medium">Expiry</th>
+                          <th className="pb-1.5 font-medium text-right">Amount</th>
                         </tr>
-                      )
-                    }
-                    
-                    return expiringSoon.map((est: any) => {
-                      const amount = parseFloat(String(est.total || est.amount || 0).replace(/[£$€,\s]/g, '')) || 0
-                      return (
-                        <tr key={est.id} className="border-b border-slate-100 hover:bg-slate-50">
-                          <td className="py-3 text-slate-700 text-sm">{est.customer}</td>
-                          <td className="py-3 text-slate-600 text-sm">{est.expiryDate ? new Date(est.expiryDate).toLocaleDateString('en-GB') : ''}</td>
-                          <td className="py-3 font-semibold text-slate-800 text-sm">{currencySymbol}{amount.toFixed(2)}</td>
-                        </tr>
-                      )
-                    })
-                  })()}
-                </tbody>
-              </table>
+                      </thead>
+                      <tbody className="divide-y divide-slate-100">
+                        {displayEstimates.map((est: any) => {
+                          const amount = parseFloat(String(est.total || est.amount || 0).replace(/[£$€,\s]/g, '')) || 0
+                          const expiryDate = est.expiryDate ? new Date(est.expiryDate) : null
+                          const daysLeft = expiryDate ? Math.ceil((expiryDate.getTime() - now.getTime()) / (1000 * 60 * 60 * 24)) : null
+                          return (
+                            <tr key={est.id} className="group">
+                              <td className="py-2 pr-2">
+                                <span className="text-sm font-medium text-slate-800">{est.customer}</span>
+                              </td>
+                              <td className="py-2 pr-2">
+                                <span className="text-sm text-slate-600">{expiryDate ? expiryDate.toLocaleDateString('en-GB') : '—'}</span>
+                                {daysLeft != null && daysLeft <= 7 && (
+                                  <span className="ml-1.5 inline-flex items-center rounded-md bg-amber-100 px-1.5 py-0.5 text-xs font-medium text-amber-800">
+                                    {daysLeft === 0 ? 'Today' : daysLeft === 1 ? '1 day' : `${daysLeft} days`}
+                                  </span>
+                                )}
+                              </td>
+                              <td className="py-2 text-right text-sm font-semibold text-slate-800">{currencySymbol}{amount.toFixed(2)}</td>
+                            </tr>
+                          )
+                        })}
+                      </tbody>
+                    </table>
+                    {isDummyEstimates && (
+                      <Link
+                        to="/estimates/add"
+                        className="mt-4 inline-flex items-center gap-2 text-sm font-medium text-primary-600 hover:text-primary-700"
+                      >
+                        <Plus className="w-4 h-4" />
+                        Create estimate
+                      </Link>
+                    )}
+                  </>
+                )
+              })()}
             </div>
           </div>
 
           {/* Recurring Invoices */}
-          <div className="bg-white rounded-lg shadow-sm border border-slate-200">
-            <div className="p-4 border-b border-slate-200 flex justify-between items-center">
-              <div className="flex items-center gap-2">
-                <h3 className="text-lg font-semibold text-slate-800">Recurring invoices</h3>
-                <Info className="w-4 h-4 text-slate-400" />
+          <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+            <div className="px-5 py-4 border-b border-slate-100 flex flex-wrap items-center justify-between gap-3">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-lg bg-primary-50 flex items-center justify-center">
+                  <Repeat className="w-5 h-5 text-primary-600" strokeWidth={2} />
+                </div>
+                <div>
+                  <h3 className="text-base font-semibold text-slate-800">Recurring invoices</h3>
+                  <p className="text-xs text-slate-500 mt-0.5">Scheduled to repeat</p>
+                </div>
               </div>
               <Link
                 to="/invoices"
-                className="text-primary-600 hover:text-primary-700 text-sm font-medium"
+                className="inline-flex items-center px-3 py-1.5 rounded-lg text-sm font-medium text-slate-700 bg-slate-100 hover:bg-slate-200 border border-slate-200 transition-colors"
               >
                 See all
               </Link>
             </div>
-            <div className="p-4 overflow-x-auto">
-              <table className="w-full min-w-[300px]">
-                <thead>
-                  <tr className="text-left text-xs font-semibold text-slate-600 uppercase border-b border-slate-200">
-                    <th className="pb-3">CUSTOMER</th>
-                    <th className="pb-3">NEXT DATE</th>
-                    <th className="pb-3">AMOUNT</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {(() => {
-                    const recurring = invoices.filter((inv: any) => inv.isRecurring).slice(0, 5)
-                    
-                    if (recurring.length === 0) {
-                      return (
-                        <tr>
-                          <td colSpan={3} className="py-8 text-center text-slate-500">
-                            No recurring invoices yet...
-                          </td>
+            <div className="px-5 pb-5 pt-4 overflow-x-auto">
+              {(() => {
+                const recurring = invoices.filter((inv: any) => inv.isRecurring).slice(0, 5)
+                const displayRecurring = recurring.length > 0 ? recurring : dummyRecurringInvoices
+                const isDummyRecurring = recurring.length === 0
+                return (
+                  <>
+                    <table className="w-full min-w-[280px]">
+                      <thead>
+                        <tr className="text-left text-xs font-medium text-slate-500">
+                          <th className="pb-1.5 font-medium">Customer</th>
+                          <th className="pb-1.5 font-medium">Next date</th>
+                          <th className="pb-1.5 font-medium text-right">Amount</th>
                         </tr>
-                      )
-                    }
-                    
-                    return recurring.map((inv: any) => {
-                      const amount = parseFloat(String(inv.amount || inv.total || 0).replace(/[£$€,\s]/g, '')) || 0
-                      const nextDate = inv.nextDate ? new Date(inv.nextDate) : null
-                      return (
-                        <tr key={inv.id} className="border-b border-slate-100 hover:bg-slate-50">
-                          <td className="py-3 text-slate-700 text-sm">{inv.customer}</td>
-                          <td className="py-3 text-slate-600 text-sm">{nextDate ? nextDate.toLocaleDateString('en-GB') : 'N/A'}</td>
-                          <td className="py-3 font-semibold text-slate-800 text-sm">{currencySymbol}{amount.toFixed(2)}</td>
-                        </tr>
-                      )
-                    })
-                  })()}
-                </tbody>
-              </table>
+                      </thead>
+                      <tbody className="divide-y divide-slate-100">
+                        {displayRecurring.map((inv: any) => {
+                          const amount = parseFloat(String(inv.amount || inv.total || 0).replace(/[£$€,\s]/g, '')) || 0
+                          const nextDate = inv.nextDate ? new Date(inv.nextDate) : null
+                          return (
+                            <tr key={inv.id} className="group">
+                              <td className="py-2 pr-2">
+                                <span className="text-sm font-medium text-slate-800">{inv.customer}</span>
+                              </td>
+                              <td className="py-2 pr-2 text-sm text-slate-600">
+                                {nextDate ? nextDate.toLocaleDateString('en-GB') : '—'}
+                              </td>
+                              <td className="py-2 text-right text-sm font-semibold text-slate-800">{currencySymbol}{amount.toFixed(2)}</td>
+                            </tr>
+                          )
+                        })}
+                      </tbody>
+                    </table>
+                    {isDummyRecurring && (
+                      <Link
+                        to="/invoices/add"
+                        className="mt-4 inline-flex items-center gap-2 text-sm font-medium text-primary-600 hover:text-primary-700"
+                      >
+                        <Plus className="w-4 h-4" />
+                        Create invoice
+                      </Link>
+                    )}
+                  </>
+                )
+              })()}
             </div>
           </div>
         </div>
 
-        {/* Who Owe's Me? */}
-        <div className="bg-white rounded-lg shadow-sm border border-slate-200">
-          <div className="p-4 border-b border-slate-200">
+        {/* Who owes me? */}
+        <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+          <div className="px-5 py-4 border-b border-slate-200">
             <div className="flex justify-between items-center mb-3">
               <div className="flex items-center gap-2">
                 <h3 className="text-lg font-semibold text-slate-800">Who owes me?</h3>
@@ -405,11 +450,11 @@ export default function Dashboard() {
                 See all
               </Link>
             </div>
-            <div className="flex flex-wrap gap-2 sm:gap-4 text-xs sm:text-sm">
-              <div className="px-2 sm:px-3 py-1 bg-primary-100 text-primary-700 rounded font-medium">
+            <div className="flex flex-wrap gap-2 sm:gap-3 text-xs sm:text-sm">
+              <div className="px-3 py-1.5 bg-primary-100 text-primary-700 rounded-md font-medium">
                 ISSUED THIS MONTH
               </div>
-              <div className="px-2 sm:px-3 py-1 bg-accent-100 text-accent-700 rounded font-medium">
+              <div className="px-3 py-1.5 bg-accent-100 text-accent-700 rounded-md font-medium">
                 DUE THIS MONTH
               </div>
             </div>
@@ -418,13 +463,13 @@ export default function Dashboard() {
             <table className="w-full min-w-[600px]">
               <thead>
                 <tr className="text-left text-xs font-semibold text-slate-600 uppercase border-b border-slate-200 bg-slate-50">
-                  <th className="px-2 sm:px-4 py-3">INVOICE</th>
-                  <th className="px-2 sm:px-4 py-3">CUSTOMER</th>
-                  <th className="px-2 sm:px-4 py-3 hidden sm:table-cell">ISSUE DATE</th>
-                  <th className="px-2 sm:px-4 py-3 hidden md:table-cell">DUE DATE</th>
-                  <th className="px-2 sm:px-4 py-3">DUE</th>
-                  <th className="px-2 sm:px-4 py-3">AMOUNT</th>
-                  <th className="px-2 sm:px-4 py-3 hidden lg:table-cell">BALANCE</th>
+                  <th className="px-4 py-3">INVOICE</th>
+                  <th className="px-4 py-3">CUSTOMER</th>
+                  <th className="px-4 py-3 hidden sm:table-cell">ISSUE DATE</th>
+                  <th className="px-4 py-3 hidden md:table-cell">DUE DATE</th>
+                  <th className="px-4 py-3">DUE</th>
+                  <th className="px-4 py-3">AMOUNT</th>
+                  <th className="px-4 py-3 hidden lg:table-cell">BALANCE</th>
                 </tr>
               </thead>
               <tbody>
@@ -471,7 +516,7 @@ export default function Dashboard() {
                   if (displayInvoices.length === 0) {
                     return (
                       <tr>
-                        <td colSpan={7} className="px-2 sm:px-4 py-8 text-center text-slate-500">
+                        <td colSpan={7} className="px-4 py-8 text-center text-slate-500">
                           There are no overdue invoices yet...
                         </td>
                       </tr>
@@ -489,18 +534,18 @@ export default function Dashboard() {
                     }
                     
                     return (
-                      <tr key={inv.id} className="border-b border-slate-100 hover:bg-slate-50">
-                        <td className="px-2 sm:px-4 py-3">
+                      <tr key={inv.id} className="border-b border-slate-100 hover:bg-slate-50 transition-colors">
+                        <td className="px-4 py-3">
                           <Link to={`/invoices/${inv.id}`} className="text-primary-600 hover:text-primary-700 font-medium text-sm">
                             {inv.invoiceNumber || inv.id}
                           </Link>
                         </td>
-                        <td className="px-2 sm:px-4 py-3 text-slate-700 text-sm">{inv.customer}</td>
-                        <td className="px-2 sm:px-4 py-3 text-slate-600 text-sm hidden sm:table-cell">{inv.issueDate || inv.date || ''}</td>
-                        <td className="px-2 sm:px-4 py-3 text-slate-600 text-sm hidden md:table-cell">{dueDate ? dueDate.toLocaleDateString('en-GB') : ''}</td>
-                        <td className="px-2 sm:px-4 py-3 text-slate-600 text-sm">{dueText}</td>
-                        <td className="px-2 sm:px-4 py-3 font-semibold text-slate-800 text-sm">{currencySymbol}{amount.toFixed(2)}</td>
-                        <td className="px-2 sm:px-4 py-3 font-semibold text-slate-800 text-sm hidden lg:table-cell">{currencySymbol}{balance.toFixed(2)}</td>
+                        <td className="px-4 py-3 text-slate-700 text-sm">{inv.customer}</td>
+                        <td className="px-4 py-3 text-slate-600 text-sm hidden sm:table-cell">{inv.issueDate || inv.date || ''}</td>
+                        <td className="px-4 py-3 text-slate-600 text-sm hidden md:table-cell">{dueDate ? dueDate.toLocaleDateString('en-GB') : ''}</td>
+                        <td className="px-4 py-3 text-slate-600 text-sm">{dueText}</td>
+                        <td className="px-4 py-3 font-semibold text-slate-800 text-sm">{currencySymbol}{amount.toFixed(2)}</td>
+                        <td className="px-4 py-3 font-semibold text-slate-800 text-sm hidden lg:table-cell">{currencySymbol}{balance.toFixed(2)}</td>
                       </tr>
                     )
                   })
@@ -511,21 +556,20 @@ export default function Dashboard() {
         </div>
 
         {/* Account Summary */}
-        <div className="bg-white rounded-lg shadow-sm border border-slate-200 p-6">
+        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-5 sm:p-6">
           <div className="flex justify-between items-center mb-4">
             <h3 className="text-lg font-semibold text-slate-800">Account summary</h3>
             <div className="relative" ref={accountSummaryDropdownRef}>
               <button
                 onClick={() => setShowAccountSummaryDropdown(!showAccountSummaryDropdown)}
-                className="flex items-center gap-2 px-4 py-2 bg-blue-50 border border-blue-200 rounded-lg hover:bg-blue-100 transition-colors text-primary-600 font-medium text-sm"
+                className="flex items-center gap-2 px-4 py-2 bg-primary-50 border border-primary-200 rounded-lg hover:bg-primary-100 transition-colors text-primary-700 font-medium text-sm"
               >
                 <Calendar className="w-4 h-4" />
                 {selectedPeriod}
                 <ChevronDown className="w-4 h-4" />
               </button>
               {showAccountSummaryDropdown && (
-                <div className="absolute top-full right-0 mt-2 w-56 bg-white rounded-lg shadow-lg border border-slate-200 z-50">
-                  <div className="absolute -top-2 right-6 w-0 h-0 border-l-[6px] border-r-[6px] border-b-[6px] border-transparent border-b-white"></div>
+                <div className="absolute top-full right-0 mt-2 w-56 bg-white rounded-xl shadow-lg border border-slate-200 z-50 overflow-hidden">
                   {periodOptions.map((option, index) => (
                     <div key={option}>
                       <button
@@ -533,9 +577,9 @@ export default function Dashboard() {
                           setSelectedPeriod(option)
                           setShowAccountSummaryDropdown(false)
                         }}
-                        className={`w-full text-left px-4 py-2 text-sm transition-colors ${
+                        className={`w-full text-left px-4 py-2.5 text-sm transition-colors ${
                           option === selectedPeriod
-                            ? 'bg-blue-50 text-primary-600 font-medium'
+                            ? 'bg-primary-50 text-primary-700 font-medium'
                             : 'text-slate-700 hover:bg-slate-50'
                         }`}
                       >
@@ -552,11 +596,11 @@ export default function Dashboard() {
           </div>
           <div className="mb-4 flex flex-wrap items-center gap-3 sm:gap-4 text-xs sm:text-sm">
             <div className="flex items-center gap-2">
-              <div className="w-3 h-3 bg-green-500 rounded flex-shrink-0"></div>
+              <div className="w-3 h-3 bg-green-500 rounded-md flex-shrink-0"></div>
               <span className="text-slate-600">Current year sales</span>
             </div>
             <div className="flex items-center gap-2">
-              <div className="w-3 h-3 bg-purple-500 rounded flex-shrink-0"></div>
+              <div className="w-3 h-3 bg-purple-500 rounded-md flex-shrink-0"></div>
               <span className="text-slate-600">Previous year sales</span>
             </div>
             <span className="text-slate-500">Daily chart</span>
@@ -570,21 +614,20 @@ export default function Dashboard() {
         </div>
 
         {/* Best Selling Services or Products */}
-        <div className="bg-white rounded-lg shadow-sm border border-slate-200">
-          <div className="p-4 border-b border-slate-200 flex justify-between items-center">
+        <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+          <div className="px-5 py-4 border-b border-slate-200 flex justify-between items-center">
             <h3 className="text-lg font-semibold text-slate-800">Best selling services or products</h3>
             <div className="relative" ref={bestSellingDropdownRef}>
               <button
                 onClick={() => setShowBestSellingDropdown(!showBestSellingDropdown)}
-                className="flex items-center gap-2 px-4 py-2 bg-blue-50 border border-blue-200 rounded-lg hover:bg-blue-100 transition-colors text-primary-600 font-medium text-sm"
+                className="flex items-center gap-2 px-4 py-2 bg-primary-50 border border-primary-200 rounded-lg hover:bg-primary-100 transition-colors text-primary-700 font-medium text-sm"
               >
                 <Calendar className="w-4 h-4" />
                 {selectedPeriod}
                 <ChevronDown className="w-4 h-4" />
               </button>
               {showBestSellingDropdown && (
-                <div className="absolute top-full right-0 mt-2 w-56 bg-white rounded-lg shadow-lg border border-slate-200 z-50">
-                  <div className="absolute -top-2 right-6 w-0 h-0 border-l-[6px] border-r-[6px] border-b-[6px] border-transparent border-b-white"></div>
+                <div className="absolute top-full right-0 mt-2 w-56 bg-white rounded-xl shadow-lg border border-slate-200 z-50 overflow-hidden">
                   {periodOptions.map((option, index) => (
                     <div key={option}>
                       <button
@@ -592,9 +635,9 @@ export default function Dashboard() {
                           setSelectedPeriod(option)
                           setShowBestSellingDropdown(false)
                         }}
-                        className={`w-full text-left px-4 py-2 text-sm transition-colors ${
+                        className={`w-full text-left px-4 py-2.5 text-sm transition-colors ${
                           option === selectedPeriod
-                            ? 'bg-blue-50 text-primary-600 font-medium'
+                            ? 'bg-primary-50 text-primary-700 font-medium'
                             : 'text-slate-700 hover:bg-slate-50'
                         }`}
                       >
@@ -609,14 +652,14 @@ export default function Dashboard() {
               )}
             </div>
           </div>
-          <div className="p-4 overflow-x-auto">
+          <div className="p-5 overflow-x-auto">
             <table className="w-full min-w-[500px]">
               <thead>
                 <tr className="text-left text-xs font-semibold text-slate-600 uppercase border-b border-slate-200">
-                  <th className="pb-3">NAME</th>
-                  <th className="pb-3">QUANTITY SOLD</th>
-                  <th className="pb-3 hidden md:table-cell">AVERAGE SALE VALUE</th>
-                  <th className="pb-3">SALES</th>
+                  <th className="px-4 py-3">NAME</th>
+                  <th className="px-4 py-3">QUANTITY SOLD</th>
+                  <th className="px-4 py-3 hidden md:table-cell">AVERAGE SALE VALUE</th>
+                  <th className="px-4 py-3">SALES</th>
                 </tr>
               </thead>
               <tbody>

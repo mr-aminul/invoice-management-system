@@ -169,10 +169,10 @@ export default function EstimateDetail() {
 
   return (
     <Layout>
-      <div className="space-y-6">
+      <div className="space-y-6 sm:space-y-8">
         {/* Header */}
-        <div className="no-print flex justify-between items-center">
-          <div className="flex items-center gap-4">
+        <div className="no-print flex flex-wrap justify-between items-start sm:items-center gap-4">
+          <div className="flex items-center gap-3 sm:gap-4">
             <Link
               to="/estimates"
               className="p-2 hover:bg-slate-100 rounded-lg transition-colors"
@@ -180,7 +180,7 @@ export default function EstimateDetail() {
               <ArrowLeft className="w-5 h-5" />
             </Link>
             <div>
-              <h2 className="text-3xl font-bold text-slate-800 flex items-center gap-3">
+              <h2 className="text-2xl sm:text-3xl font-bold text-slate-800 flex items-center gap-3">
                 <FileText className="w-8 h-8 text-primary-600" />
                 {estimate.estimateNumber || estimate.number || estimate.id}
               </h2>
@@ -190,7 +190,7 @@ export default function EstimateDetail() {
           <div className="flex items-center gap-3">
             <button
               onClick={handlePrint}
-              className="flex items-center gap-2 px-4 py-2 border border-slate-300 rounded-lg hover:bg-slate-50 transition-colors"
+              className="flex items-center gap-2 px-4 py-2.5 border border-slate-300 rounded-lg hover:bg-slate-50 transition-colors text-sm font-medium"
               title="Print estimate"
             >
               <Printer className="w-4 h-4" />
@@ -198,7 +198,7 @@ export default function EstimateDetail() {
             </button>
             <button
               onClick={handleDownload}
-              className="flex items-center gap-2 px-4 py-2 border border-slate-300 rounded-lg hover:bg-slate-50 transition-colors"
+              className="flex items-center gap-2 px-4 py-2.5 border border-slate-300 rounded-lg hover:bg-slate-50 transition-colors text-sm font-medium"
               title="Download estimate"
             >
               <Download className="w-4 h-4" />
@@ -206,7 +206,7 @@ export default function EstimateDetail() {
             </button>
             <button
               onClick={handleSendEmail}
-              className="flex items-center gap-2 px-4 py-2 border border-slate-300 rounded-lg hover:bg-slate-50 transition-colors"
+              className="flex items-center gap-2 px-4 py-2.5 border border-slate-300 rounded-lg hover:bg-slate-50 transition-colors text-sm font-medium"
               title="Send via email"
             >
               <Mail className="w-4 h-4" />
@@ -214,7 +214,7 @@ export default function EstimateDetail() {
             </button>
             <button
               onClick={() => navigate(`/estimates/add?edit=${estimate.id}`)}
-              className="flex items-center gap-2 px-4 py-2 border border-slate-300 rounded-lg hover:bg-slate-50 transition-colors"
+              className="flex items-center gap-2 px-4 py-2.5 border border-slate-300 rounded-lg hover:bg-slate-50 transition-colors text-sm font-medium"
               title="Edit estimate"
             >
               <Edit className="w-4 h-4" />
@@ -222,7 +222,7 @@ export default function EstimateDetail() {
             </button>
             <button
               onClick={handleDelete}
-              className="flex items-center gap-2 px-4 py-2 border border-red-300 text-red-600 rounded-lg hover:bg-red-50 transition-colors"
+              className="flex items-center gap-2 px-4 py-2.5 border border-red-300 text-red-600 rounded-lg hover:bg-red-50 transition-colors text-sm font-medium"
               title="Delete estimate"
             >
               <Trash2 className="w-4 h-4" />
@@ -232,7 +232,7 @@ export default function EstimateDetail() {
         </div>
 
         {/* Estimate Content */}
-        <div className="print-content bg-white rounded-lg shadow-sm border border-slate-200 p-4">
+        <div className="print-content bg-white rounded-xl shadow-sm border border-slate-200 p-5 sm:p-6">
           {/* Estimate Header with Logo */}
           <div className="flex justify-between items-start mb-4 pb-3 border-b border-slate-200">
             <div className="flex items-start gap-3">

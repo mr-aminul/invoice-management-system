@@ -205,9 +205,9 @@ export default function Customers() {
         onSave={handleAddCustomer}
         customer={editingCustomer || undefined}
       />
-      <div className="space-y-6">
+      <div className="space-y-6 sm:space-y-8">
         {/* Header */}
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 sm:gap-5">
           <h2 className="text-2xl sm:text-3xl font-bold text-slate-800">Customers</h2>
           <div className="flex flex-wrap items-center gap-2 sm:gap-3 w-full sm:w-auto">
             <button
@@ -236,7 +236,7 @@ export default function Customers() {
         </div>
 
         {/* Filters */}
-        <div className="bg-white rounded-lg shadow-sm border border-slate-200 p-4">
+        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-5">
           <div className="flex flex-col md:flex-row gap-4">
             <div className="flex flex-wrap gap-4 flex-1">
               {/* Mode Filter */}
@@ -282,8 +282,8 @@ export default function Customers() {
         </div>
 
         {/* Customers Table */}
-        <div className="bg-white rounded-lg shadow-sm border border-slate-200">
-          <div className="p-4 border-b border-slate-200">
+        <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+          <div className="px-5 py-4 border-b border-slate-200">
             <div className="flex items-center gap-4">
               <button
                 onClick={handleBulkDelete}
@@ -303,7 +303,7 @@ export default function Customers() {
             <table className="w-full min-w-[600px]">
               <thead>
                 <tr className="text-left text-xs font-semibold text-slate-600 uppercase border-b border-slate-200 bg-slate-50">
-                  <th className="px-2 sm:px-4 py-3 w-12">
+                  <th className="px-4 py-3 w-12">
                     <input
                       type="checkbox"
                       className="rounded border-slate-300"
@@ -311,18 +311,18 @@ export default function Customers() {
                       onChange={toggleAllSelection}
                     />
                   </th>
-                  <th className="px-2 sm:px-4 py-3">NAME</th>
-                  <th className="px-2 sm:px-4 py-3 hidden md:table-cell">E-MAIL</th>
-                  <th className="px-2 sm:px-4 py-3">PHONE NUMBER</th>
-                  <th className="px-2 sm:px-4 py-3">BALANCE</th>
-                  <th className="px-2 sm:px-4 py-3">ACTIONS</th>
-                  <th className="px-2 sm:px-4 py-3 w-12"></th>
+                  <th className="px-4 py-3">NAME</th>
+                  <th className="px-4 py-3 hidden md:table-cell">E-MAIL</th>
+                  <th className="px-4 py-3">PHONE NUMBER</th>
+                  <th className="px-4 py-3">BALANCE</th>
+                  <th className="px-4 py-3">ACTIONS</th>
+                  <th className="px-4 py-3 w-12"></th>
                 </tr>
               </thead>
               <tbody>
                 {filteredCustomers.length === 0 ? (
                   <tr>
-                    <td colSpan={7} className="py-12 text-center text-slate-500">
+                    <td colSpan={7} className="px-4 py-8 text-center text-slate-500">
                       No customers found
                     </td>
                   </tr>
@@ -331,8 +331,8 @@ export default function Customers() {
                     // Calculate balance dynamically
                     const balance = calculateCustomerBalance(customer.id)
                     return (
-                      <tr key={customer.id} className="border-b border-slate-100 hover:bg-slate-50">
-                        <td className="px-2 sm:px-4 py-3">
+                      <tr key={customer.id} className="border-b border-slate-100 hover:bg-slate-50 transition-colors">
+                        <td className="px-4 py-3">
                           <input
                             type="checkbox"
                             className="rounded border-slate-300"
@@ -340,13 +340,13 @@ export default function Customers() {
                             onChange={() => toggleCustomerSelection(customer.id)}
                           />
                         </td>
-                        <td className="px-2 sm:px-4 py-3">
+                        <td className="px-4 py-3">
                           <span className="text-slate-800 font-medium text-sm truncate max-w-[120px] sm:max-w-none block">{customer.name}</span>
                         </td>
-                        <td className="px-2 sm:px-4 py-3 text-slate-600 text-sm hidden md:table-cell truncate max-w-[200px]">{customer.email}</td>
-                        <td className="px-2 sm:px-4 py-3 text-slate-600 text-sm">{customer.phone}</td>
-                        <td className="px-2 sm:px-4 py-3 font-semibold text-slate-800 text-sm">{balance}</td>
-                      <td className="px-2 sm:px-4 py-3">
+                        <td className="px-4 py-3 text-slate-600 text-sm hidden md:table-cell truncate max-w-[200px]">{customer.email}</td>
+                        <td className="px-4 py-3 text-slate-600 text-sm">{customer.phone}</td>
+                        <td className="px-4 py-3 font-semibold text-slate-800 text-sm">{balance}</td>
+                      <td className="px-4 py-3">
                         <div className="flex items-center gap-1 sm:gap-2">
                           <button
                             onClick={() => alert(`Viewing customer: ${customer.name}`)}
@@ -371,7 +371,7 @@ export default function Customers() {
                           </button>
                         </div>
                       </td>
-                      <td className="px-2 sm:px-4 py-3"></td>
+                      <td className="px-4 py-3"></td>
                     </tr>
                     )
                   })

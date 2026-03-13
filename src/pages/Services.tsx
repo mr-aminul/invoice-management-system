@@ -95,10 +95,10 @@ export default function Services() {
         onSave={handleAddService}
         product={editingService || undefined}
       />
-      <div className="space-y-6">
-        <div className="flex justify-between items-center">
-          <h2 className="text-3xl font-bold text-slate-800">Services</h2>
-          <div className="flex items-center gap-3">
+      <div className="space-y-6 sm:space-y-8">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 sm:gap-5">
+          <h2 className="text-2xl sm:text-3xl font-bold text-slate-800">Services</h2>
+          <div className="flex flex-wrap items-center gap-2 sm:gap-3 w-full sm:w-auto">
             <button
               onClick={() => setShowImportModal(true)}
               className="flex items-center gap-2 px-4 py-2 border border-slate-300 rounded-lg hover:bg-slate-50 transition-colors"
@@ -115,7 +115,7 @@ export default function Services() {
             </button>
             <button
               onClick={() => setShowAddModal(true)}
-              className="btn-gradient-orange flex items-center gap-2"
+              className="btn-gradient-orange flex items-center gap-2 text-sm"
             >
               <i className="material-icons add-invoice-icon">add</i>
               Add Service
@@ -123,13 +123,13 @@ export default function Services() {
           </div>
         </div>
         {services.length === 0 ? (
-          <div className="bg-white rounded-lg shadow-sm border border-slate-200 p-12 text-center text-slate-500">
+          <div className="bg-white rounded-xl shadow-sm border border-slate-200 px-4 py-8 text-center text-slate-500">
             No services yet. Add your first service to get started.
           </div>
         ) : (
-          <div className="bg-white rounded-lg shadow-sm border border-slate-200">
+          <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
             <div className="overflow-x-auto">
-              <table className="w-full">
+              <table className="w-full min-w-[600px]">
                 <thead>
                   <tr className="text-left text-xs font-semibold text-slate-600 uppercase border-b border-slate-200 bg-slate-50">
                     <th className="px-4 py-3">NAME</th>
@@ -141,11 +141,11 @@ export default function Services() {
                 </thead>
                 <tbody>
                   {(services || []).map((service) => (
-                    <tr key={service.id} className="border-b border-slate-100 hover:bg-slate-50">
-                      <td className="px-4 py-3 font-medium text-slate-800">{service.name}</td>
-                      <td className="px-4 py-3 text-slate-600">{service.description}</td>
-                      <td className="px-4 py-3">£{service.price.toFixed(2)}</td>
-                      <td className="px-4 py-3">{service.vat}%</td>
+                    <tr key={service.id} className="border-b border-slate-100 hover:bg-slate-50 transition-colors">
+                      <td className="px-4 py-3 font-medium text-slate-800 text-sm">{service.name}</td>
+                      <td className="px-4 py-3 text-slate-600 text-sm">{service.description}</td>
+                      <td className="px-4 py-3 text-sm">£{service.price.toFixed(2)}</td>
+                      <td className="px-4 py-3 text-sm">{service.vat}%</td>
                       <td className="px-4 py-3">
                         <div className="flex items-center gap-2">
                           <button

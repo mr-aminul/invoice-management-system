@@ -93,12 +93,12 @@ export default function Refunds() {
         onSave={handleAddRefund}
         refund={editingRefund || undefined}
       />
-      <div className="space-y-6">
-        <div className="flex justify-between items-center">
-          <h2 className="text-3xl font-bold text-slate-800">Refunds</h2>
+      <div className="space-y-6 sm:space-y-8">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 sm:gap-5">
+          <h2 className="text-2xl sm:text-3xl font-bold text-slate-800">Refunds</h2>
           <button
             onClick={() => setShowAddModal(true)}
-            className="btn-gradient-orange flex items-center gap-2"
+            className="btn-gradient-orange flex items-center gap-2 text-sm w-full sm:w-auto justify-center sm:justify-start"
           >
             <i className="material-icons add-invoice-icon">add</i>
             Add Refund
@@ -106,7 +106,7 @@ export default function Refunds() {
         </div>
 
         {/* Filters */}
-        <div className="bg-white rounded-lg shadow-sm border border-slate-200 p-4">
+        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-5">
           <div className="flex flex-col md:flex-row gap-4">
             <div className="flex flex-wrap gap-4 flex-1">
               <div className="relative">
@@ -159,12 +159,12 @@ export default function Refunds() {
         </div>
 
         {/* Refunds Table */}
-        <div className="bg-white rounded-lg shadow-sm border border-slate-200">
+        <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
           {filteredRefunds.length === 0 ? (
-            <div className="p-12 text-center text-slate-500">No refunds yet.</div>
+            <div className="px-4 py-8 text-center text-slate-500">No refunds yet.</div>
           ) : (
             <div className="overflow-x-auto">
-              <table className="w-full">
+              <table className="w-full min-w-[800px]">
                 <thead>
                   <tr className="text-left text-xs font-semibold text-slate-600 uppercase border-b border-slate-200 bg-slate-50">
                     <th className="px-4 py-3 w-12">
@@ -196,7 +196,7 @@ export default function Refunds() {
                   {filteredRefunds.map((refund) => {
                     if (!refund) return null
                     return (
-                      <tr key={refund.id} className="border-b border-slate-100 hover:bg-slate-50">
+                      <tr key={refund.id} className="border-b border-slate-100 hover:bg-slate-50 transition-colors">
                         <td className="px-4 py-3">
                           <input
                             type="checkbox"
@@ -211,13 +211,13 @@ export default function Refunds() {
                             {refund.number}
                           </span>
                         </td>
-                        <td className="px-4 py-3 text-slate-700">{refund.customer}</td>
-                        <td className="px-4 py-3 text-slate-600">{refund.invoiceNumber}</td>
-                        <td className="px-4 py-3 text-slate-600">{refund.date}</td>
-                        <td className="px-4 py-3 font-semibold text-slate-800">{refund.amount}</td>
-                        <td className="px-4 py-3 text-slate-600">{refund.paymentMethod}</td>
+                        <td className="px-4 py-3 text-slate-700 text-sm">{refund.customer}</td>
+                        <td className="px-4 py-3 text-slate-600 text-sm">{refund.invoiceNumber}</td>
+                        <td className="px-4 py-3 text-slate-600 text-sm">{refund.date}</td>
+                        <td className="px-4 py-3 font-semibold text-slate-800 text-sm">{refund.amount}</td>
+                        <td className="px-4 py-3 text-slate-600 text-sm">{refund.paymentMethod}</td>
                         <td className="px-4 py-3">
-                          <span className="px-2 py-1 bg-green-100 text-green-700 rounded text-xs font-medium">
+                          <span className="px-2.5 py-1 bg-green-100 text-green-700 rounded-md text-xs font-medium">
                             {refund.status}
                           </span>
                         </td>

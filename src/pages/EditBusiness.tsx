@@ -262,7 +262,7 @@ export default function EditBusiness() {
         </div>
 
         {/* Tabs */}
-        <div className="bg-white rounded-lg shadow-sm border border-slate-200">
+        <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
           <div className="border-b border-slate-200">
             <div className="flex overflow-x-auto">
               <button
@@ -329,7 +329,7 @@ export default function EditBusiness() {
           </div>
 
           {/* Tab Content */}
-          <div className="p-6">
+          <div className="p-5 sm:p-6">
             {activeTab === 'general' && (
               <div className="space-y-6">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">

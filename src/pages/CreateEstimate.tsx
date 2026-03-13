@@ -382,7 +382,7 @@ export default function CreateEstimate() {
           notes,
         }}
       />
-      <div className="space-y-6">
+      <div className="space-y-6 sm:space-y-8">
         {/* Header */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
           <h2 className="text-2xl sm:text-3xl font-bold text-slate-800">{isEditMode ? 'Edit Estimate' : 'Add new Estimate'}</h2>
@@ -419,11 +419,11 @@ export default function CreateEstimate() {
           </div>
         </div>
 
-        <div className="space-y-6">
+        <div className="space-y-6 sm:space-y-8">
           {/* From/To Section */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* From */}
-            <div className="bg-white rounded-lg shadow-sm border border-slate-200 p-6">
+            <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-5 sm:p-6">
               <h3 className="text-lg font-semibold text-slate-800 mb-4">From</h3>
               <div className="mb-4">
                 <div className="text-slate-800 font-medium">{currentBusiness?.name || 'No Business Selected'}</div>
@@ -442,7 +442,7 @@ export default function CreateEstimate() {
             </div>
 
             {/* To */}
-            <div className="bg-white rounded-lg shadow-sm border border-slate-200 p-6">
+            <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-5 sm:p-6">
               <h3 className="text-lg font-semibold text-slate-800 mb-4">To</h3>
               <div className="mb-4">
                 <select
@@ -488,7 +488,7 @@ export default function CreateEstimate() {
           </div>
 
           {/* General Info */}
-          <div className="bg-white rounded-lg shadow-sm border border-slate-200 p-6">
+          <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-5 sm:p-6">
             <h3 className="text-lg font-semibold text-slate-800 mb-4">General Info</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
@@ -585,7 +585,7 @@ export default function CreateEstimate() {
           </div>
 
           {/* Items Section */}
-          <div className="bg-white rounded-lg shadow-sm border border-slate-200 p-6">
+          <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-5 sm:p-6">
             <div className="flex items-center gap-3 mb-4">
               <div className="w-1 h-6 bg-teal-500 rounded-full"></div>
               <h3 className="text-lg font-semibold text-teal-700">Items</h3>
@@ -714,7 +714,7 @@ export default function CreateEstimate() {
 
           {/* Terms and Notes */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="bg-white rounded-lg shadow-sm border border-slate-200 p-6">
+            <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-5 sm:p-6">
               <h3 className="text-lg font-semibold text-slate-800 mb-4">Terms</h3>
               <textarea
                 value={terms}
@@ -724,7 +724,7 @@ export default function CreateEstimate() {
                 placeholder="Please include estimate validity period or any important conditions (e.g., Estimate valid for 30 days)."
               />
             </div>
-            <div className="bg-white rounded-lg shadow-sm border border-slate-200 p-6">
+            <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-5 sm:p-6">
               <h3 className="text-lg font-semibold text-slate-800 mb-4">Notes</h3>
               <textarea
                 value={notes}

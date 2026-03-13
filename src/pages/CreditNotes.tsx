@@ -91,12 +91,12 @@ export default function CreditNotes() {
         onSave={handleAddCreditNote}
         creditNote={editingCreditNote || undefined}
       />
-      <div className="space-y-6">
-        <div className="flex justify-between items-center">
-          <h2 className="text-3xl font-bold text-slate-800">Credit Notes</h2>
+      <div className="space-y-6 sm:space-y-8">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 sm:gap-5">
+          <h2 className="text-2xl sm:text-3xl font-bold text-slate-800">Credit Notes</h2>
           <button
             onClick={() => setShowAddModal(true)}
-            className="btn-gradient-orange flex items-center gap-2"
+            className="btn-gradient-orange flex items-center gap-2 text-sm w-full sm:w-auto justify-center sm:justify-start"
           >
             <i className="material-icons add-invoice-icon">add</i>
             Add Credit Note
@@ -104,7 +104,7 @@ export default function CreditNotes() {
         </div>
 
         {/* Filters */}
-        <div className="bg-white rounded-lg shadow-sm border border-slate-200 p-4">
+        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-5">
           <div className="flex flex-col md:flex-row gap-4">
             <div className="flex flex-wrap gap-4 flex-1">
               <div className="relative">
@@ -157,12 +157,12 @@ export default function CreditNotes() {
         </div>
 
         {/* Credit Notes Table */}
-        <div className="bg-white rounded-lg shadow-sm border border-slate-200">
+        <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
           {filteredCreditNotes.length === 0 ? (
-            <div className="p-12 text-center text-slate-500">No credit notes yet.</div>
+            <div className="px-4 py-8 text-center text-slate-500">No credit notes yet.</div>
           ) : (
             <div className="overflow-x-auto">
-              <table className="w-full">
+              <table className="w-full min-w-[800px]">
                 <thead>
                   <tr className="text-left text-xs font-semibold text-slate-600 uppercase border-b border-slate-200 bg-slate-50">
                     <th className="px-4 py-3 w-12">
@@ -193,7 +193,7 @@ export default function CreditNotes() {
                   {filteredCreditNotes.map((creditNote) => {
                     if (!creditNote) return null
                     return (
-                      <tr key={creditNote.id} className="border-b border-slate-100 hover:bg-slate-50">
+                      <tr key={creditNote.id} className="border-b border-slate-100 hover:bg-slate-50 transition-colors">
                       <td className="px-4 py-3">
                         <input
                           type="checkbox"
@@ -208,12 +208,12 @@ export default function CreditNotes() {
                           {creditNote.number}
                         </span>
                       </td>
-                      <td className="px-4 py-3 text-slate-700">{creditNote.customer}</td>
-                      <td className="px-4 py-3 text-slate-600">{creditNote.invoiceNumber}</td>
-                      <td className="px-4 py-3 text-slate-600">{creditNote.date}</td>
-                      <td className="px-4 py-3 font-semibold text-slate-800">{creditNote.amount}</td>
+                      <td className="px-4 py-3 text-slate-700 text-sm">{creditNote.customer}</td>
+                      <td className="px-4 py-3 text-slate-600 text-sm">{creditNote.invoiceNumber}</td>
+                      <td className="px-4 py-3 text-slate-600 text-sm">{creditNote.date}</td>
+                      <td className="px-4 py-3 font-semibold text-slate-800 text-sm">{creditNote.amount}</td>
                       <td className="px-4 py-3">
-                        <span className="px-2 py-1 bg-green-100 text-green-700 rounded text-xs font-medium">
+                        <span className="px-2.5 py-1 bg-green-100 text-green-700 rounded-md text-xs font-medium">
                           {creditNote.status}
                         </span>
                       </td>
